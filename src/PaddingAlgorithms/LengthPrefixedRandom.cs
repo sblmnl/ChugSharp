@@ -27,12 +27,12 @@ namespace ChugSharp.PaddingAlgorithms
 
         private static byte GetPrefixLength(int dataLength)
         {
-            if (dataLength <= byte.MaxValue * 2)
+            if (dataLength <= ((byte.MaxValue + 1) * 2) + 1)
             {
                 return 1;
             }
 
-            if (dataLength <= short.MaxValue * 2)
+            if (dataLength <= ((short.MaxValue + 1) * 2) + 2)
             {
                 return 2;
             }

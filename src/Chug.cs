@@ -5,15 +5,15 @@ namespace ChugSharp
 {
     public class Chug
     {
-        public ChugPaddingAlgorithm Padding { get; set; }
-        public bool UsePadding { get; set; }
         public int BlockSize { get; set; }
-        
-        public Chug(ChugPaddingAlgorithm padding = ChugPaddingAlgorithm.LengthPrefixedRandom, int blockSize = 0, bool usePadding = false)
+        public bool UsePadding { get; set; }
+        public ChugPaddingAlgorithm Padding { get; set; }
+
+        public Chug(int blockSize = 0, bool usePadding = false, ChugPaddingAlgorithm padding = ChugPaddingAlgorithm.LengthPrefixedRandom)
         {
-            Padding = padding;
             BlockSize = blockSize;
             UsePadding = usePadding;
+            Padding = padding;
         }
 
         private byte[] Forward(byte[] data, byte[] key)
