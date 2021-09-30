@@ -6,7 +6,7 @@
 [![](https://img.shields.io/nuget/dt/ChugSharp?color=blue&label=nuget&style=flat-square)](https://www.nuget.org/packages/ChugSharp)
 [![](https://img.shields.io/github/v/release/sblmnl/ChugSharp?color=lightgray&style=flat-square)](https://github.com/sblmnl/ChugSharp/releases)
 
-Official implementation of the [Chug](https://github.com/sblmnl/chug) encryption and padding algorithms.
+The official implementation of the [Chug](https://github.com/sblmnl/chug) encryption and padding algorithms.
 
 ## Getting Started
 
