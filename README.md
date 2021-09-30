@@ -37,7 +37,7 @@ class Program
         Console.WriteLine("key\t\t:\t{0}", BitConverter.ToString(key).Replace("-", "").ToLower());
         Console.WriteLine("plaintext\t:\t{0}", BitConverter.ToString(plaintext).Replace("-", "").ToLower());
         Console.WriteLine("ciphertext\t:\t{0}", BitConverter.ToString(ciphertext).Replace("-", "").ToLower());
-        Console.WriteLine("message\t\t:\t{0}", BitConverter.ToString(secret).Replace("-", "").ToLower());
+        Console.WriteLine("message\t\t:\t{0}", BitConverter.ToString(message).Replace("-", "").ToLower());
     }
 }
 ```
