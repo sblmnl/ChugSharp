@@ -5,24 +5,41 @@ namespace ChugSharp
 {
     public class Chug
     {
-        public int BlockSize { get; set; }
         public bool UsePadding { get; set; }
-        public ChugPaddingAlgorithm Padding { get; set; }
+        public IChugPaddingAlgorithm Padding { get; set; }
 
-        public Chug(int blockSize = 0, bool usePadding = false, ChugPaddingAlgorithm padding = ChugPaddingAlgorithm.LengthPrefixedRandom)
+        public Chug()
         {
-            BlockSize = blockSize;
+            UsePadding = false;
+        }
+
+        public Chug(bool usePadding)
+        {
+            UsePadding = usePadding;
+            Padding = new LengthPrefixedRandomPadding(32);
+        }
+
+        public Chug(
+            bool usePadding,
+            IChugPaddingAlgorithm padding)
+        {
             UsePadding = usePadding;
             Padding = padding;
         }
 
+        /// <summary>
+        /// Encrypts the data with the key.
+        /// </summary>
+        /// <param name="data">The data to encrypt.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>The data encrypted with the key.</returns>
         private byte[] Forward(byte[] data, byte[] key)
         {
             if (data is null)
-                throw new ArgumentNullException(nameof(data), "The data cannot be null!");
+                throw new ArgumentNullException(nameof(data));
 
             if (key is null)
-                throw new ArgumentNullException(nameof(key), "The key cannot be null!");
+                throw new ArgumentNullException(nameof(key));
 
             byte[] result = new byte[data.Length * 4];
 
@@ -62,13 +79,22 @@ namespace ChugSharp
             return result;
         }
 
+        /// <summary>
+        /// Decrypts the data with the key.
+        /// </summary>
+        /// <param name="data">The data to decrypt.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>The data decrypted with the key.</returns>
         private byte[] Reverse(byte[] data, byte[] key)
         {
             if (data is null)
-                throw new ArgumentNullException(nameof(data), "The data cannot be null!");
+                throw new ArgumentNullException(nameof(data));
 
             if (key is null)
-                throw new ArgumentNullException(nameof(key), "The key cannot be null!");
+                throw new ArgumentNullException(nameof(key));
+
+            if (data.Length % 4 != 0)
+                throw new ArgumentException("The data length is not a multiple of 4!", nameof(data));
 
             byte[] result = new byte[data.Length / 4];
 
@@ -109,49 +135,39 @@ namespace ChugSharp
             return result;
         }
 
+        /// <summary>
+        /// Encrypts the data with the key.
+        /// </summary>
+        /// <param name="data">The data to encrypt.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>The data encrypted with the key.</returns>
         public byte[] Encrypt(byte[] data, byte[] key)
         {
-            if (data is null)
-                throw new ArgumentNullException(nameof(data), "The data cannot be null!");
-
-            if (key is null)
-                throw new ArgumentNullException(nameof(key), "The key cannot be null!");
-
             if (UsePadding)
             {
-                switch (Padding)
-                {
-                    case ChugPaddingAlgorithm.LengthPrefixedRandom:
-                        return Forward(LengthPrefixedRandom.Pad(data, BlockSize), key);
-                    case ChugPaddingAlgorithm.ZeroSuffixedRandom:
-                        return Forward(ZeroSuffixedRandom.Pad(data, BlockSize), key);
-                    default:
-                        return Forward(LengthPrefixedRandom.Pad(data, BlockSize), key);
-                }
+                if (Padding is null)
+                    throw new ArgumentNullException(nameof(Padding));
+
+                return Forward(Padding.Pad(data), key);
             }
 
             return Forward(data, key);
         }
 
+        /// <summary>
+        /// Decrypts the data with the key.
+        /// </summary>
+        /// <param name="data">The data to decrypt.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>The data decrypted with the key.</returns>
         public byte[] Decrypt(byte[] data, byte[] key)
         {
-            if (data is null)
-                throw new ArgumentNullException(nameof(data), "The data cannot be null!");
-
-            if (key is null)
-                throw new ArgumentNullException(nameof(key), "The key cannot be null!");
-
             if (UsePadding)
             {
-                switch (Padding)
-                {
-                    case ChugPaddingAlgorithm.LengthPrefixedRandom:
-                        return LengthPrefixedRandom.Unpad(Reverse(data, key), BlockSize);
-                    case ChugPaddingAlgorithm.ZeroSuffixedRandom:
-                        return ZeroSuffixedRandom.Unpad(Reverse(data, key), BlockSize);
-                    default:
-                        return LengthPrefixedRandom.Unpad(Reverse(data, key), BlockSize);
-                }
+                if (Padding is null)
+                    throw new ArgumentNullException(nameof(Padding));
+
+                return Padding.Unpad(Reverse(data, key));
             }
 
             return Reverse(data, key);
