@@ -27,7 +27,7 @@ class Program
 {
     static void Main()
     {
-        var chug = new Chug();
+        var chug = new Chug(usePadding: true);
 
         byte[] key = Encoding.UTF8.GetBytes("My super secret encryption key");
         byte[] plaintext = Encoding.UTF8.GetBytes("My secret message");
@@ -47,8 +47,8 @@ class Program
 ```
 key             :       4d792073757065722073656372657420656e6372797074696f6e206b6579
 plaintext       :       4d7920736563726574206d657373616765
-ciphertext      :       c2a10df2c28a08c0c2b89913c28d2c60c2947f79c2958b58c28db24ec2947f79c28ca66ec2b89913c2904ffcc2947f79c28d2c60c28d2c60c2969737c293739bc2947f79
-message         :       4d7920726563726574206d657272616765
+ciphertext      :       35b9604284af02474c7668f3de29c926a0f99a3e8a4b8c4d47468c4c9a3ab517
+message         :       4d7920736563726574206d657373616765
 ```
 
 ## Suggestions & Bug Reports
