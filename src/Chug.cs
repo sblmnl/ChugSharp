@@ -41,39 +41,27 @@ namespace ChugSharp
             if (key is null)
                 throw new ArgumentNullException(nameof(key));
 
-            byte[] result = new byte[data.Length * 4];
+            byte[] result = new byte[data.Length];
 
             for (int i = 0; i < data.Length; i++)
             {
-                float value = data[i];
+                int n = data[i];
 
-                for (int j = 0; j < key.Length; j++)
+                for (int j = i % key.Length; j < key.Length + i; j++)
                 {
-                    if (key[j] == 0)
-                        continue;
-
-                    switch (j % 4)
+                    switch ((j + i) % 2)
                     {
                         case 0:
-                            value += key[j];
+                            n += key[j % key.Length];
+                            
                             break;
                         case 1:
-                            value -= key[j];
-                            break;
-                        case 2:
-                            value *= key[j];
-                            break;
-                        case 3:
-                            value /= key[j];
+                            n -= key[j % key.Length];
                             break;
                     }
-
-                    byte[] buffer = BitConverter.GetBytes(value);
-                    if (BitConverter.IsLittleEndian)
-                        Array.Reverse(buffer);
-
-                    Buffer.BlockCopy(buffer, 0, result, i * 4, 4);
                 }
+
+                result[i] = (byte)(n % 256);
             }
 
             return result;
@@ -93,43 +81,26 @@ namespace ChugSharp
             if (key is null)
                 throw new ArgumentNullException(nameof(key));
 
-            if (data.Length % 4 != 0)
-                throw new ArgumentException("The data length is not a multiple of 4!", nameof(data));
+            byte[] result = new byte[data.Length];
 
-            byte[] result = new byte[data.Length / 4];
-
-            for (int i = 0; i < data.Length; i += 4)
+            for (int i = 0; i < data.Length; i++)
             {
-                byte[] buffer = new byte[4];
-                Buffer.BlockCopy(data, i, buffer, 0, 4);
-                if (BitConverter.IsLittleEndian)
-                    Array.Reverse(buffer);
+                int n = data[i];
 
-                float value = BitConverter.ToSingle(buffer, 0);
-
-                for (int j = key.Length - 1; j >= 0; j--)
+                for (int j = (key.Length - 1) + i; j >= i % key.Length; j--)
                 {
-                    if (key[j] == 0)
-                        continue;
-
-                    switch (j % 4)
+                    switch ((j + i) % 2)
                     {
                         case 0:
-                            value -= key[j];
+                            n -= key[j % key.Length];
                             break;
                         case 1:
-                            value += key[j];
-                            break;
-                        case 2:
-                            value /= key[j];
-                            break;
-                        case 3:
-                            value *= key[j];
+                            n += key[j % key.Length];
                             break;
                     }
                 }
 
-                result[i / 4] = (byte)value;
+                result[i] = (byte)(n % 256);
             }
 
             return result;
