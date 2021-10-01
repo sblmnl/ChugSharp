@@ -5,15 +5,17 @@ namespace ChugSharp.PaddingAlgorithms
 {
     public class LengthPrefixedRandomPadding : IChugPaddingAlgorithm
     {
+        private int _blockSize;
+
         public int BlockSize
         {
-            get => BlockSize;
+            get => _blockSize;
             set
             {
                 if (value < 2)
-                    throw new ArgumentOutOfRangeException(nameof(value), "The block size cannot be less than 2!");
+                    throw new ArgumentOutOfRangeException(nameof(BlockSize), "The block size cannot be less than 2!");
 
-                BlockSize = value;
+                _blockSize = value;
             }
         }
 
@@ -78,7 +80,7 @@ namespace ChugSharp.PaddingAlgorithms
                 throw new ArgumentNullException(nameof(data));
 
             int paddedLength = data.Length < BlockSize
-                ? BlockSize - data.Length
+                ? BlockSize
                 : BlockSize * (data.Length / BlockSize + 1);
 
             byte[] paddedData = new byte[paddedLength];
