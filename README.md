@@ -8,6 +8,10 @@
 
 The official implementation of the [Chug](https://github.com/sblmnl/chug) encryption and padding algorithms.
 
+## Disclaimer
+
+Chug is an enthusiast algorithm and is not intended for use in any security applications.
+
 ## Getting Started
 
 ### Installation
