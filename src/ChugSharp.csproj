@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>2.2.1</Version>
+    <AssemblyVersion>2.2.1.0</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>sblmnl</Authors>
+    <Copyright>sblmnl</Copyright>
+    <RepositoryUrl>https://github.com/sblmnl/ChugSharp</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageReleaseNotes>Fixes bugs in padding algorithm implementations.</PackageReleaseNotes>
+    <PackageProjectUrl></PackageProjectUrl>
+    <Description>The official implementation of the Chug encryption and padding algorithms.</Description>
+    <FileVersion>2.2.1.0</FileVersion>
+  </PropertyGroup>
+
+</Project>
