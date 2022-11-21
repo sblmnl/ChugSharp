@@ -2,7 +2,6 @@
 
 [![](https://img.shields.io/github/license/sblmnl/ChugSharp?color=red&style=flat-square)](LICENSE)
 [![](https://img.shields.io/github/workflow/status/sblmnl/ChugSharp/.NET?style=flat-square)](https://github.com/sblmnl/ChugSharp/actions/workflows/dotnet.yml)
-[![](https://img.shields.io/nuget/v/ChugSharp?style=flat-square)](https://www.nuget.org/packages/ChugSharp)
 [![](https://img.shields.io/nuget/dt/ChugSharp?color=blue&label=nuget&style=flat-square)](https://www.nuget.org/packages/ChugSharp)
 [![](https://img.shields.io/github/v/release/sblmnl/ChugSharp?color=lightgray&style=flat-square)](https://github.com/sblmnl/ChugSharp/releases)
 
@@ -13,12 +12,6 @@ The official implementation of the [Chug](https://github.com/sblmnl/chug) encryp
 Chug is an enthusiast algorithm and is not intended for use in any security applications.
 
 ## Getting Started
-
-### Installation
-
-```
-Install-Package ChugSharp
-```
 
 ### Sample Code
 
