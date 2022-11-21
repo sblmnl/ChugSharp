@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net6</TargetFramework>
-    <Version>2.2.1</Version>
-    <AssemblyVersion>2.2.1.0</AssemblyVersion>
+    <Version>3.0.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>sblmnl</Authors>
     <Copyright>sblmnl</Copyright>
     <RepositoryUrl>https://github.com/sblmnl/ChugSharp</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageReleaseNotes>Fixes bugs in padding algorithm implementations.</PackageReleaseNotes>
+    <PackageReleaseNotes>Upgrade to .NET 6.</PackageReleaseNotes>
     <PackageProjectUrl></PackageProjectUrl>
     <Description>The official implementation of the Chug encryption and padding algorithms.</Description>
-    <FileVersion>2.2.1.0</FileVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
 
 </Project>
